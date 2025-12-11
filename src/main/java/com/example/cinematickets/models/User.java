@@ -1,7 +1,7 @@
 package com.example.cinematickets.models;
 
 public class User {
-    int id;
+    public int id;
     String name;
     private String username;
     private String password;
