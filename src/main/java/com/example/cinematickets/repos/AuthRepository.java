@@ -2,12 +2,15 @@ package com.example.cinematickets.repos;
 
 import com.example.cinematickets.models.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AuthRepository {
-    private AuthRepository repo;
-    private AuthRepository(){}
-    public AuthRepository getInstance() {
+    private static AuthRepository repo;
+    private AuthRepository(){
+        users = new ArrayList<>();
+    }
+    public static AuthRepository getInstance() {
         if(repo==null){
             repo = new AuthRepository();
         }
@@ -18,7 +21,7 @@ public class AuthRepository {
 
     //return true if user registered
     //false if username is already used by another user
-    boolean registerNewUser(User user){
+    public boolean registerNewUser(User user){
         //search for username
         for (User u : users) {
             if (u.getUsername().equals(user.getUsername())) {
@@ -33,7 +36,7 @@ public class AuthRepository {
 
     //return true if logged in
     //false if user or password incorrect
-    boolean login(String username,String password){
+    public boolean login(String username, String password){
         for (User user : users) {
             if(user.getUsername().equals(username)&&user.getPassword().equals(password)){
                 CurrentUser=user;
