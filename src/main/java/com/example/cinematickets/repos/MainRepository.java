@@ -18,9 +18,9 @@ public class MainRepository {
         }
         return repo;
     }
-    List<Movie> movies;
-    List<ShowTime> showTimes;
-    List<Hall> halls;
+    List<Movie> movies=new ArrayList<>();
+    List<ShowTime> showTimes=new ArrayList<>();
+    List<Hall> halls=new ArrayList<>();
     int moviesCount=0;
     int hallsCount=0;
     int showTimesCount=0;
