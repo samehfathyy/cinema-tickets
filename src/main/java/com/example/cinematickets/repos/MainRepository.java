@@ -21,9 +21,14 @@ public class MainRepository {
     List<Movie> movies;
     List<ShowTime> showTimes;
     List<Hall> halls;
+    int moviesCount=0;
+    int hallsCount=0;
+    int showTimesCount=0;
+
+    //movie
     void addMovie(String name,String language,String genre){
         FlyWeightMovieType movieType = MovieTypeFactory.getMovieType(language,genre);
-        movies.add(new Movie(movies.size(), name,movieType));
+        movies.add(new Movie(moviesCount++, name,movieType));
     }
     void deleteMovieById(int id){
         movies.removeIf(movie -> movie.id==id);
@@ -47,12 +52,7 @@ public class MainRepository {
                 .collect(Collectors.toList());
     }
 
-    void addHall(String name,int capacity){
-        halls.add(new Hall(halls.size(),name,capacity));
-    }
-    List<Hall> getHalls(){
-        return halls;
-    }
+
     List<Movie> getMoviesByHall(int hallId){
         List<Movie> filteredMovies = new ArrayList<>();
         for(ShowTime showTime:showTimes){
@@ -75,6 +75,14 @@ public class MainRepository {
             }
         }
         return new ArrayList<>(filteredSet);
+    }
+
+    //halls
+    void addHall(String name,int capacity){
+        halls.add(new Hall(hallsCount++,name,capacity));
+    }
+    List<Hall> getHalls(){
+        return halls;
     }
 
     }
