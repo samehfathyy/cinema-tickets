@@ -47,8 +47,8 @@ public class MainRepository {
                 .collect(Collectors.toList());
     }
 
-    void addHall(Hall hall){
-        halls.add(hall);
+    void addHall(String name,int capacity){
+        halls.add(new Hall(halls.size(),name,capacity));
     }
     List<Hall> getHalls(){
         return halls;

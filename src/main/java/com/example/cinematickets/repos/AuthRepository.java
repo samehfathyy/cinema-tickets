@@ -7,13 +7,12 @@ import java.util.List;
 
 public class AuthRepository {
     private static AuthRepository repo;
-<<<<<<< HEAD
     private AuthRepository(){
-        users = new ArrayList<>();
+        users=new ArrayList<>();
     }
-=======
-    private AuthRepository(){}
->>>>>>> 3d4c96a11ebec8c6621f05d575f7f5d588c933eb
+
+
+
     public static AuthRepository getInstance() {
         if(repo==null){
             repo = new AuthRepository();
@@ -40,11 +39,10 @@ public class AuthRepository {
 
     //return true if logged in
     //false if user or password incorrect
-<<<<<<< HEAD
-    public boolean login(String username, String password){
-=======
+
+
     public boolean login(String username,String password){
->>>>>>> 3d4c96a11ebec8c6621f05d575f7f5d588c933eb
+
         for (User user : users) {
             if(user.getUsername().equals(username)&&user.getPassword().equals(password)){
                 CurrentUser=user;
