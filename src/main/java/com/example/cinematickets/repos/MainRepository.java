@@ -1,8 +1,6 @@
 package com.example.cinematickets.repos;
 
-import com.example.cinematickets.models.Hall;
-import com.example.cinematickets.models.Movie;
-import com.example.cinematickets.models.ShowTime;
+import com.example.cinematickets.models.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -23,8 +21,9 @@ public class MainRepository {
     List<Movie> movies;
     List<ShowTime> showTimes;
     List<Hall> halls;
-    void addMovie(Movie movie){
-        movies.add(movie);
+    void addMovie(String name,String language,String genre){
+        FlyWeightMovieType movieType = MovieTypeFactory.getMovieType(language,genre);
+        movies.add(new Movie(movies.size(), name,movieType));
     }
     void deleteMovieById(int id){
         movies.removeIf(movie -> movie.id==id);
@@ -39,12 +38,12 @@ public class MainRepository {
     }
     List<Movie> getMoviesByGenre(String genre){
         return movies.stream()
-                .filter(movie -> movie.genre != null && movie.genre.equalsIgnoreCase(genre))
+                .filter(movie -> movie.type.genre != null && movie.type.genre.equalsIgnoreCase(genre))
                 .collect(Collectors.toList());
     }
     List<Movie> getMoviesByLanguage(String language){
         return movies.stream()
-                .filter(movie -> movie.language != null && movie.language.equalsIgnoreCase(language))
+                .filter(movie -> movie.type.language != null && movie.type.language.equalsIgnoreCase(language))
                 .collect(Collectors.toList());
     }
 
