@@ -10,9 +10,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class MainRepository {
-    private MainRepository repo;
+    private static MainRepository repo;
     private MainRepository(){}
-    public MainRepository getInstance() {
+    public static MainRepository getInstance() {
         if(repo==null){
             repo = new MainRepository();
         }
@@ -33,8 +33,15 @@ public class MainRepository {
     void deleteMovieById(int id){
         movies.removeIf(movie -> movie.id==id);
     }
+    Movie getMovieById(int id){
+        for (Movie movie:movies){
+            if (movie.id==id)
+                return movie;
+        }
+        return null;
+    }
     List<Movie> getMovies(){
-        return movies;
+        return new ArrayList<>(movies);
     }
     List<Movie> getMoviesByRateHigherThan(Float rate){
         return movies.stream()
@@ -51,29 +58,36 @@ public class MainRepository {
                 .filter(movie -> movie.type.language != null && movie.type.language.equalsIgnoreCase(language))
                 .collect(Collectors.toList());
     }
-
-
     List<Movie> getMoviesByHall(int hallId){
         List<Movie> filteredMovies = new ArrayList<>();
-        for(ShowTime showTime:showTimes){
-            if(showTime.hall.id==hallId){
-                filteredMovies.add(showTime.movie);
+        try {
+            for(ShowTime showTime:showTimes){
+                if(showTime.hallId==hallId){
+                    filteredMovies.add(getMovieById( showTime.movieId));
+                }
             }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
         return filteredMovies;
     }
-
     List<Movie> getMoviesByDate(LocalDateTime startDate,LocalDateTime endDate){
         //test for duplicated movies in the returned list *after test remove this line*
         if(startDate.isAfter(endDate)){
             return new ArrayList<>();
         }
         Set<Movie> filteredSet = new HashSet<>();
-        for(ShowTime showTime:showTimes) {
-            if(showTime.datetime.isAfter(startDate)&&showTime.datetime.isBefore(endDate)){
-                filteredSet.add(showTime.movie);
+
+        try {
+            for(ShowTime showTime:showTimes) {
+                if(showTime.datetime.isAfter(startDate)&&showTime.datetime.isBefore(endDate)){
+                    filteredSet.add(getMovieById( showTime.movieId));
+                }
             }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
+
         return new ArrayList<>(filteredSet);
     }
 
@@ -82,7 +96,24 @@ public class MainRepository {
         halls.add(new Hall(hallsCount++,name,capacity));
     }
     List<Hall> getHalls(){
-        return halls;
+        return new ArrayList<>(halls);
     }
+    Hall getHallById(int id){
+        for (Hall hall:halls){
+            if (hall.id==id)
+                return hall;
+        }
+        return null;
+    }
+
+    //showTimes
+    public boolean addShowTime(LocalDateTime date,int movieId,int hallId,int capacity){
+        if (getHallById(hallId)==null||getMovieById(movieId)==null){
+            return false;
+        }
+        showTimes.add(new ShowTime(showTimesCount++,date,movieId,hallId,capacity));
+        return true;
+    }
+
 
     }

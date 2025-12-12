@@ -7,22 +7,26 @@ public class ShowTime {
     public int id;
     public LocalDateTime datetime;
     public boolean active;
-    public Movie movie;
-    public Hall hall;
-    public List<Seat> seats;
-    public ShowTime(int id,LocalDateTime datetime,Movie movie,Hall hall,List<Seat> seats){
+    public int movieId;
+    public int hallId;
+    private List<Seat> seats;
+    public ShowTime(int id,LocalDateTime datetime,int movieId,int hallId,int hallCapacity){
         this.id=id;
         this.datetime=datetime;
-        this.movie=movie;
-        this.hall=hall;
+        this.movieId=movieId;
+        this.hallId=hallId;
         this.active=true;
-        if(seats==null){
-            for (int i=1;i<=hall.capacity;i++){
-                seats.add(new Seat(i,false));
-            }
-        }
-        else {
-            this.seats=seats;
+        for (int i=1;i<=hallCapacity;i++){
+            seats.add(new Seat(i,false));
         }
     }
+    public int getAvailableSeatsNumber(){
+        int count=0;
+        for (Seat seat:seats){
+            if(seat.isBooked)
+                count++;
+        }
+        return count;
+    }
+
 }
