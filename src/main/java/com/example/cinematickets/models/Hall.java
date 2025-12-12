@@ -1,7 +1,7 @@
 package com.example.cinematickets.models;
 
 public class Hall {
-    int id;
+    public int id;
     String name;
     int capacity;
 }
