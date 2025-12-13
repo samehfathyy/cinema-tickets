@@ -11,7 +11,8 @@ import java.util.stream.Collectors;
 
 public class MainRepository {
     private static MainRepository repo;
-    private MainRepository(){}
+    private MainRepository(){
+    }
     public static MainRepository getInstance() {
         if(repo==null){
             repo = new MainRepository();
@@ -26,39 +27,39 @@ public class MainRepository {
     int showTimesCount=0;
 
     //movie
-    void addMovie(String name,String language,String genre){
+    public void addMovie(String name,String language,String genre){
         FlyWeightMovieType movieType = MovieTypeFactory.getMovieType(language,genre);
         movies.add(new Movie(moviesCount++, name,movieType));
     }
-    void deleteMovieById(int id){
+    public void deleteMovieById(int id){
         movies.removeIf(movie -> movie.id==id);
     }
-    Movie getMovieById(int id){
+    public Movie getMovieById(int id){
         for (Movie movie:movies){
             if (movie.id==id)
                 return movie;
         }
         return null;
     }
-    List<Movie> getMovies(){
+    public List<Movie> getMovies(){
         return new ArrayList<>(movies);
     }
-    List<Movie> getMoviesByRateHigherThan(Float rate){
+    public List<Movie> getMoviesByRateHigherThan(Float rate){
         return movies.stream()
                 .filter(movie -> movie.avgRate != null && movie.avgRate >= rate)
                 .collect(Collectors.toList());
     }
-    List<Movie> getMoviesByGenre(String genre){
+    public List<Movie> getMoviesByGenre(String genre){
         return movies.stream()
                 .filter(movie -> movie.type.genre != null && movie.type.genre.equalsIgnoreCase(genre))
                 .collect(Collectors.toList());
     }
-    List<Movie> getMoviesByLanguage(String language){
+    public List<Movie> getMoviesByLanguage(String language){
         return movies.stream()
                 .filter(movie -> movie.type.language != null && movie.type.language.equalsIgnoreCase(language))
                 .collect(Collectors.toList());
     }
-    List<Movie> getMoviesByHall(int hallId){
+    public List<Movie> getMoviesByHall(int hallId){
         List<Movie> filteredMovies = new ArrayList<>();
         try {
             for(ShowTime showTime:showTimes){
@@ -71,7 +72,7 @@ public class MainRepository {
         }
         return filteredMovies;
     }
-    List<Movie> getMoviesByDate(LocalDateTime startDate,LocalDateTime endDate){
+    public List<Movie> getMoviesByDate(LocalDateTime startDate,LocalDateTime endDate){
         //test for duplicated movies in the returned list *after test remove this line*
         if(startDate.isAfter(endDate)){
             return new ArrayList<>();
@@ -92,13 +93,13 @@ public class MainRepository {
     }
 
     //halls
-    void addHall(String name,int capacity){
+    public void addHall(String name,int capacity){
         halls.add(new Hall(hallsCount++,name,capacity));
     }
-    List<Hall> getHalls(){
+    public List<Hall> getHalls(){
         return new ArrayList<>(halls);
     }
-    Hall getHallById(int id){
+    public Hall getHallById(int id){
         for (Hall hall:halls){
             if (hall.id==id)
                 return hall;
@@ -114,6 +115,9 @@ public class MainRepository {
         showTimes.add(new ShowTime(showTimesCount++,date,movieId,hallId,capacity));
         return true;
     }
-
-
+    public List<ShowTime> getShowTimes(){
+        return new ArrayList<>(showTimes);
     }
+
+
+}

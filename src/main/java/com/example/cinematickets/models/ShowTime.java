@@ -1,6 +1,7 @@
 package com.example.cinematickets.models;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShowTime {
@@ -9,7 +10,7 @@ public class ShowTime {
     public boolean active;
     public int movieId;
     public int hallId;
-    private List<Seat> seats;
+    public List<Seat> seats=new ArrayList<>();
     public ShowTime(int id,LocalDateTime datetime,int movieId,int hallId,int hallCapacity){
         this.id=id;
         this.datetime=datetime;
