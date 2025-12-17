@@ -1,6 +1,7 @@
-package com.example.cinematickets.repos;
+package org.example.repos;
 
-import com.example.cinematickets.models.User;
+
+import org.example.models.User;
 
 import java.util.ArrayList;
 import java.util.List;

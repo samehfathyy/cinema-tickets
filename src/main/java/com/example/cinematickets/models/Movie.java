@@ -1,11 +1,11 @@
-package com.example.cinematickets.models;
+package org.example.models;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Movie {
+public class Movie implements Prototype{
     public int id;
-    public String name;
+    private String name;
     public FlyWeightMovieType type;
     public Float avgRate;
     private List<Review> reviews;
@@ -37,4 +37,12 @@ public class Movie {
         return reviews;
     }
 
+    @Override
+    public Movie getClone() {
+        return new Movie(this.id,this.name,this.type,this.avgRate,this.reviews);
+    }
+
+    public String getName() {
+        return name;
+    }
 }

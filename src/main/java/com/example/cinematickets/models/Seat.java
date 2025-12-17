@@ -1,6 +1,6 @@
-package com.example.cinematickets.models;
+package org.example.models;
 
-public class Seat {
+public class Seat implements Prototype{
     public int seatNumber;
     public boolean isBooked;
     public Seat(int seatNumber,boolean isBooked){
@@ -8,4 +8,8 @@ public class Seat {
         this.isBooked=isBooked;
     }
 
+    @Override
+    public Seat getClone() {
+        return new Seat(this.seatNumber,this.isBooked);
+    }
 }

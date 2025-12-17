@@ -1,6 +1,8 @@
-package com.example.cinematickets.repos;
+package org.example.repos;
 
-import com.example.cinematickets.models.*;
+
+
+import org.example.models.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -41,30 +43,37 @@ public class MainRepository {
         }
         return null;
     }
+
     public List<Movie> getMovies(){
-        return new ArrayList<>(movies);
+        return movies.stream()
+                .map(Movie::getClone)
+                .collect(Collectors.toList());
     }
     public List<Movie> getMoviesByRateHigherThan(Float rate){
         return movies.stream()
                 .filter(movie -> movie.avgRate != null && movie.avgRate >= rate)
                 .collect(Collectors.toList());
     }
-    public List<Movie> getMoviesByGenre(String genre){
+    public List<Movie> filterMoviesByGenre(String genre){
         return movies.stream()
-                .filter(movie -> movie.type.genre != null && movie.type.genre.equalsIgnoreCase(genre))
+                .filter(movie -> movie.type.genre != null )
+                .filter(movie ->  movie.type.genre.equalsIgnoreCase(genre))
+                .distinct()
                 .collect(Collectors.toList());
     }
-    public List<Movie> getMoviesByLanguage(String language){
+    public List<Movie> filterMoviesByLanguage(String language){
         return movies.stream()
-                .filter(movie -> movie.type.language != null && movie.type.language.equalsIgnoreCase(language))
+                .filter(movie -> movie.type.language != null )
+                .filter(movie ->  movie.type.language.equalsIgnoreCase(language))
+                .distinct()
                 .collect(Collectors.toList());
     }
-    public List<Movie> getMoviesByHall(int hallId){
+    public List<Movie> filterMoviesByHallId(int hallId){
         List<Movie> filteredMovies = new ArrayList<>();
         try {
             for(ShowTime showTime:showTimes){
-                if(showTime.hallId==hallId){
-                    filteredMovies.add(getMovieById( showTime.movieId));
+                if(showTime.getHallId()==hallId){
+                    filteredMovies.add(getMovieById( showTime.getMovieId()));
                 }
             }
         } catch (Exception e) {
@@ -72,17 +81,16 @@ public class MainRepository {
         }
         return filteredMovies;
     }
-    public List<Movie> getMoviesByDate(LocalDateTime startDate,LocalDateTime endDate){
+    public List<Movie> filterMoviesByDate(LocalDateTime startDate,LocalDateTime endDate){
         //test for duplicated movies in the returned list *after test remove this line*
         if(startDate.isAfter(endDate)){
             return new ArrayList<>();
         }
         Set<Movie> filteredSet = new HashSet<>();
-
         try {
             for(ShowTime showTime:showTimes) {
-                if(showTime.datetime.isAfter(startDate)&&showTime.datetime.isBefore(endDate)){
-                    filteredSet.add(getMovieById( showTime.movieId));
+                if(showTime.getDatetime().isAfter(startDate)&&showTime.getDatetime().isBefore(endDate)){
+                    filteredSet.add(getMovieById( showTime.getMovieId()));
                 }
             }
         } catch (Exception e) {
@@ -91,13 +99,33 @@ public class MainRepository {
 
         return new ArrayList<>(filteredSet);
     }
+    public List<Movie> searchMoviesByName(String wordToSearchFor) {
+        if (wordToSearchFor == null || wordToSearchFor.isBlank()) {
+            return new ArrayList<>();
+        }
+        String keyword = wordToSearchFor.toLowerCase();
+        return movies.stream()
+                .filter(movie -> movie.getName() != null)
+                .filter(movie -> movie.getName().toLowerCase().contains(keyword))
+                .distinct() //removes duplicates
+                .collect(Collectors.toList()); //Ends the stream and turns it into a collection
+    }
 
+    public List<String> getLanguagesFromAllMovies(){
+        List<String> languages = new ArrayList<>();
+        for (Movie movie:movies){
+            languages.add(movie.type.language);
+        }
+        return languages.stream().distinct().collect(Collectors.toList());
+    }
     //halls
     public void addHall(String name,int capacity){
         halls.add(new Hall(hallsCount++,name,capacity));
     }
     public List<Hall> getHalls(){
-        return new ArrayList<>(halls);
+        return halls.stream()
+                .map(Hall::getClone)
+                .collect(Collectors.toList());
     }
     public Hall getHallById(int id){
         for (Hall hall:halls){
@@ -116,8 +144,10 @@ public class MainRepository {
         return true;
     }
     public List<ShowTime> getShowTimes(){
-        return new ArrayList<>(showTimes);
+        return showTimes.stream()
+                .map(ShowTime::getClone)
+                .collect(Collectors.toList());
     }
 
 
-}
+    }

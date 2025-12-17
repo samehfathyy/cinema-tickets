@@ -1,6 +1,6 @@
-package com.example.cinematickets.models;
+package org.example.models;
 
-public class Hall {
+public class Hall implements Prototype{
     public int id;
     public String name;
     public int capacity;
@@ -12,5 +12,10 @@ public class Hall {
     }
     public int getCapacity(){
         return capacity;
+    }
+
+    @Override
+    public Hall getClone() {
+        return new Hall(this.id,this.name,this.capacity);
     }
 }

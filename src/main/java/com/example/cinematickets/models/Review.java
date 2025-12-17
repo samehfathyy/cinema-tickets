@@ -1,4 +1,4 @@
-package com.example.cinematickets.models;
+package org.example.models;
 
 public class Review {
     String comment;

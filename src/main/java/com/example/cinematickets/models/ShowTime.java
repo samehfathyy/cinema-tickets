@@ -1,16 +1,17 @@
-package com.example.cinematickets.models;
+package org.example.models;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class ShowTime {
+public class ShowTime implements Prototype{
     public int id;
-    public LocalDateTime datetime;
+    private LocalDateTime datetime;
     public boolean active;
-    public int movieId;
-    public int hallId;
-    public List<Seat> seats=new ArrayList<>();
+    private int movieId;
+    private int hallId;
+    private List<Seat> seats=new ArrayList<>();
     public ShowTime(int id,LocalDateTime datetime,int movieId,int hallId,int hallCapacity){
         this.id=id;
         this.datetime=datetime;
@@ -29,5 +30,37 @@ public class ShowTime {
         }
         return count;
     }
+
+    @Override
+    public ShowTime getClone() {
+        return new ShowTime(this.id,this.datetime,this.movieId,this.hallId,this.seats.size());
+    }
+
+    public LocalDateTime getDatetime() {
+        return datetime;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public int getMovieId() {
+        return movieId;
+    }
+
+    public int getHallId() {
+        return hallId;
+    }
+
+    public List<Seat> getSeats(){
+        return seats.stream()
+                .map(Seat::getClone)
+                .collect(Collectors.toList());
+    }
+
 
 }

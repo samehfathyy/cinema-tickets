@@ -1,4 +1,4 @@
-package com.example.cinematickets.models;
+package org.example.models;
 
 import java.util.HashMap;
 import java.util.Map;
