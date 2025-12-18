@@ -1,4 +1,4 @@
-package org.example.models;
+package com.example.cinematickets.models;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class ShowTime implements Prototype{
     public int getAvailableSeatsNumber(){
         int count=0;
         for (Seat seat:seats){
-            if(seat.isBooked())
+            if(!seat.isBooked()) // Count seats that are NOT booked
                 count++;
         }
         return count;

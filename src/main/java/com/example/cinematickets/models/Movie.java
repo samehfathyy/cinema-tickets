@@ -1,4 +1,4 @@
-package org.example.models;
+package com.example.cinematickets.models;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,8 +1,8 @@
-package org.example.repos;
+package com.example.cinematickets.repos;
 
 
 
-import org.example.models.*;
+import com.example.cinematickets.models.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -150,6 +150,18 @@ public class MainRepository {
         showTimes.add(new ShowTime(showTimesCount++,date,price,movieId,hallId,getHallById(hallId).getCapacity()));
         return true;
     }
+
+    public boolean deleteShowTimeById(int id) { //removing a showtime
+        // Check if showtime exists
+        if (getShowTimeById(id) == null) {
+            return false;
+        }
+
+        // Remove the showtime
+        showTimes.removeIf(showTime -> showTime.getId() == id);
+        return true;
+    }
+
     public ShowTime getShowTimeById(int id){
         for (ShowTime showTime:showTimes){
             if (showTime.getId()==id)

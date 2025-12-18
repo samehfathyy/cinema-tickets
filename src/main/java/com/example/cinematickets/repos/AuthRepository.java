@@ -1,15 +1,28 @@
-package org.example.repos;
+package com.example.cinematickets.repos;
 
 
-import org.example.models.User;
+import com.example.cinematickets.models.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AuthRepository {
     private static AuthRepository repo;
+    private List<User> users;
+    private User CurrentUser;
+
     private AuthRepository(){
         users=new ArrayList<>();
+        CurrentUser = null;
+
+        // Add a default admin user
+        User admin = new User("admin", 1, "admin", "admin", true);
+        users.add(admin);
+
+        // Add a default regular user for testing
+        User user = new User("user", "user");
+        users.add(user);
+
     }
 
 
@@ -20,8 +33,7 @@ public class AuthRepository {
         }
         return repo;
     }
-    private List<User> users;
-    private User CurrentUser;
+
 
     //return true if user registered
     //false if username is already used by another user
@@ -40,8 +52,6 @@ public class AuthRepository {
 
     //return true if logged in
     //false if user or password incorrect
-
-
     public boolean login(String username,String password){
 
         for (User user : users) {
@@ -54,6 +64,22 @@ public class AuthRepository {
     }
     public int getCurrnetUserId(){
         return CurrentUser.id;
+    }
+
+    public void logout() {
+        CurrentUser = null;
+    }
+
+    public User getCurrentUser() {
+        return CurrentUser;
+    }
+
+    public boolean isLoggedIn() {
+        return CurrentUser != null;
+    }
+
+    public List<User> getAllUsers() {
+        return new ArrayList<>(users);
     }
 
 }

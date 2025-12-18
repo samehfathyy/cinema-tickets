@@ -1,7 +1,9 @@
 package com.example.cinematickets;
 
 import com.example.cinematickets.repos.AuthRepository;
+import com.example.cinematickets.models.User;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -37,12 +39,36 @@ public class LoginController {
         boolean success = auth.login(username, password);
 
         if (!success) {
-            showAlert("Invalid username or password!");
+            showAlert("Invalid username or password!",Alert.AlertType.ERROR);
             return;
         }
 
-        showAlert("Logged in successfully!");
-        // TODO: go to main screen (User dashboard)
+        User currentUser = auth.getCurrentUser();
+
+        showAlert("Logged in successfully!", Alert.AlertType.INFORMATION);
+        // Check if user is admin and navigate accordingly
+        if (currentUser.isAdmin()) {
+            openAdminDashboard();
+        } else {
+            // TODO: go to main screen (User dashboard)
+        }
+
+    }
+
+    private void openAdminDashboard() { //navigating to admin dashboard
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/cinematickets/admin-dashboard.fxml")
+            );
+            Scene scene = new Scene(loader.load());
+            Stage stage = (Stage) usernameField.getScene().getWindow();
+            stage.setTitle("Admin Dashboard");
+            stage.setScene(scene);
+            stage.setMaximized(true); // Make it fullscreen for better admin experience
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert("Error loading admin dashboard: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
     }
 
     private void openSignUp() {
@@ -58,8 +84,8 @@ public class LoginController {
         }
     }
 
-    private void showAlert(String msg) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    private void showAlert(String msg, Alert.AlertType type) {
+        Alert alert = new Alert(type);
         alert.setContentText(msg);
         alert.show();
     }

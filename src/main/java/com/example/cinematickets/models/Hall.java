@@ -1,4 +1,4 @@
-package org.example.models;
+package com.example.cinematickets.models;
 
 public class Hall implements Prototype{
     private int id;

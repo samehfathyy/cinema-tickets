@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.cinematickets.Admindashboardcontroller"
+            prefHeight="600.0" prefWidth="800.0">
+
+    <!-- Top: Header -->
+    <top>
+        <VBox style="-fx-background-color: #2c3e50; -fx-padding: 20;" alignment="CENTER">
+            <Label text="Admin Dashboard" textFill="WHITE">
+                <font>
+                    <Font name="System Bold" size="28.0"/>
+                </font>
+            </Label>
+            <Label fx:id="welcomeLabel" text="Welcome, Admin!" textFill="#ecf0f1" style="-fx-padding: 10 0 0 0;">
+                <font>
+                    <Font size="16.0"/>
+                </font>
+            </Label>
+        </VBox>
+    </top>
+
+    <!-- Center: Main Menu -->
+    <center>
+        <VBox spacing="20" alignment="CENTER" style="-fx-padding: 40;">
+            
+            <Label text="Management Options" style="-fx-font-size: 20; -fx-font-weight: bold;"/>
+            
+            <!-- ShowTime Management Button -->
+            <Button fx:id="manageShowTimesBtn" text="📅 Manage ShowTimes" 
+                    prefWidth="300" prefHeight="60"
+                    style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold; -fx-background-radius: 10;">
+            </Button>
+            
+            <!-- Movie Management Button -->
+            <Button fx:id="manageMoviesBtn" text="🎬 Manage Movies" 
+                    prefWidth="300" prefHeight="60"
+                    style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold; -fx-background-radius: 10;">
+            </Button>
+            
+            <!-- Hall Management Button -->
+            <Button fx:id="manageHallsBtn" text="🏛️ Manage Halls" 
+                    prefWidth="300" prefHeight="60"
+                    style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold; -fx-background-radius: 10;">
+            </Button>
+            
+            <Separator prefWidth="300"/>
+            
+            <!-- Logout Button -->
+            <Button fx:id="logoutBtn" text="Logout" 
+                    prefWidth="200" prefHeight="40"
+                    style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: bold; -fx-background-radius: 10;">
+            </Button>
+            
+        </VBox>
+    </center>
+
+    <!-- Bottom: Footer -->
+    <bottom>
+        <HBox style="-fx-background-color: #34495e; -fx-padding: 15;" alignment="CENTER">
+            <Label text="Cinema Tickets Management System © 2024" textFill="#bdc3c7">
+                <font>
+                    <Font size="12.0"/>
+                </font>
+            </Label>
+        </HBox>
+    </bottom>
+
+</BorderPane>
