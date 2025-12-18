@@ -34,6 +34,9 @@ public class MainRepository {
         movies.add(new Movie(moviesCount++, name,movieType));
     }
     public void deleteMovieById(int id){
+        showTimes = showTimes.stream().
+                filter(showTime -> showTime.getMovieId()!=id)
+                .collect(Collectors.toList());
         movies.removeIf(movie -> movie.id==id);
     }
     public Movie getMovieById(int id){
@@ -43,7 +46,6 @@ public class MainRepository {
         }
         return null;
     }
-
     public List<Movie> getMovies(){
         return movies.stream()
                 .map(Movie::getClone)
@@ -110,7 +112,6 @@ public class MainRepository {
                 .distinct() //removes duplicates
                 .collect(Collectors.toList()); //Ends the stream and turns it into a collection
     }
-
     public List<String> getLanguagesFromAllMovies(){
         List<String> languages = new ArrayList<>();
         for (Movie movie:movies){
@@ -129,19 +130,32 @@ public class MainRepository {
     }
     public Hall getHallById(int id){
         for (Hall hall:halls){
-            if (hall.id==id)
-                return hall;
+            if (hall.getId()==id)
+                return hall.getClone();
         }
         return null;
     }
+    public void deleteHallById(int id){
+        showTimes = showTimes.stream().
+                filter(showTime -> showTime.getHallId()!=id)
+                .collect(Collectors.toList());
+        halls.removeIf(hall -> hall.getId()==id);
+    }
 
     //showTimes
-    public boolean addShowTime(LocalDateTime date,int movieId,int hallId,int capacity){
+    public boolean addShowTime(LocalDateTime date,Float price,int movieId,int hallId){
         if (getHallById(hallId)==null||getMovieById(movieId)==null){
             return false;
         }
-        showTimes.add(new ShowTime(showTimesCount++,date,movieId,hallId,capacity));
+        showTimes.add(new ShowTime(showTimesCount++,date,price,movieId,hallId,getHallById(hallId).getCapacity()));
         return true;
+    }
+    public ShowTime getShowTimeById(int id){
+        for (ShowTime showTime:showTimes){
+            if (showTime.getId()==id)
+                return showTime.getClone();
+        }
+        return null;
     }
     public List<ShowTime> getShowTimes(){
         return showTimes.stream()
@@ -149,5 +163,35 @@ public class MainRepository {
                 .collect(Collectors.toList());
     }
 
+    public Checkout bookMultipleTickets(int showTimeId,List<Integer> seatsNumbers){
+        for (int seatNumber:seatsNumbers){
+            if (seatNumber<0){
+                return null;
+            }
+        }
+        List<Integer> bookedSeatsNumbers = new ArrayList<>();
+        for (int seatNumber:seatsNumbers){
+
+        int bookedSeatNumber = getShowTimeByIdByReference(showTimeId).bookSeat(seatNumber);
+        if (bookedSeatNumber!=0)
+            bookedSeatsNumbers.add(bookedSeatNumber);
+        }
+        Float totalAmount = bookedSeatsNumbers.size()*getShowTimeByIdByReference(showTimeId).getPrice();
+        return new Checkout(getMovieNameByShowTimeId(showTimeId),getHallNameByShowTimeId(showTimeId),bookedSeatsNumbers.size(),bookedSeatsNumbers,totalAmount);
+    }
+
+    public String getMovieNameByShowTimeId(int id){
+        return getMovieById(getShowTimeById(id).getMovieId()).getName();
+    }
+    public String getHallNameByShowTimeId(int id){
+        return getHallById( getShowTimeById(id).getHallId() ).getName();
+    }
+    private ShowTime getShowTimeByIdByReference(int id){
+        for (ShowTime showTime:showTimes){
+            if (showTime.getId()==id)
+                return showTime;
+        }
+        return null;
+    }
 
     }

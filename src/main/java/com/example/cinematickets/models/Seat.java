@@ -1,8 +1,8 @@
 package org.example.models;
 
 public class Seat implements Prototype{
-    public int seatNumber;
-    public boolean isBooked;
+    private int seatNumber;
+    private boolean isBooked;
     public Seat(int seatNumber,boolean isBooked){
         this.seatNumber=seatNumber;
         this.isBooked=isBooked;
@@ -11,5 +11,19 @@ public class Seat implements Prototype{
     @Override
     public Seat getClone() {
         return new Seat(this.seatNumber,this.isBooked);
+    }
+
+    public int getSeatNumber() {
+        return seatNumber;
+    }
+
+    public boolean isBooked() {
+        return isBooked;
+    }
+    public boolean isAvailable() {
+        return !isBooked;
+    }
+    public void bookSeat() {
+        isBooked=true;
     }
 }

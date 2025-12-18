@@ -52,5 +52,8 @@ public class AuthRepository {
         }
         return false;
     }
+    public int getCurrnetUserId(){
+        return CurrentUser.id;
+    }
 
 }

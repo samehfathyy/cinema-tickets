@@ -1,9 +1,9 @@
 package org.example.models;
 
 public class Hall implements Prototype{
-    public int id;
-    public String name;
-    public int capacity;
+    private int id;
+    private String name;
+    private int capacity;
 
     public Hall(int id, String name, int capacity) {
         this.id = id;
@@ -17,5 +17,13 @@ public class Hall implements Prototype{
     @Override
     public Hall getClone() {
         return new Hall(this.id,this.name,this.capacity);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
     }
 }
