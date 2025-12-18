@@ -380,6 +380,7 @@ public class AdminShowTimeController {
             Stage stage = (Stage) backButton.getScene().getWindow();
             stage.setTitle("Admin Dashboard");
             stage.setScene(scene);
+            stage.setFullScreen(true);
         } catch (Exception e) {
             e.printStackTrace();
             showStatus("Error returning to dashboard", false);

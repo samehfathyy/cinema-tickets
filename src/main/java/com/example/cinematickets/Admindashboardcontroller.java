@@ -50,6 +50,7 @@ public class Admindashboardcontroller {
             Stage stage = (Stage) manageShowTimesBtn.getScene().getWindow();
             stage.setTitle("Manage ShowTimes");
             stage.setScene(scene);
+            stage.setFullScreen(true);
         } catch (Exception e) {
             e.printStackTrace();
             showAlert("Error loading ShowTime management: " + e.getMessage(), Alert.AlertType.ERROR);
@@ -77,6 +78,7 @@ public class Admindashboardcontroller {
             Stage stage = (Stage) logoutBtn.getScene().getWindow();
             stage.setTitle("Login");
             stage.setScene(scene);
+            stage.setFullScreen(true);
         } catch (Exception e) {
             e.printStackTrace();
         }

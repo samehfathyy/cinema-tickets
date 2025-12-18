@@ -64,7 +64,7 @@ public class LoginController {
             Stage stage = (Stage) usernameField.getScene().getWindow();
             stage.setTitle("Admin Dashboard");
             stage.setScene(scene);
-            stage.setMaximized(true); // Make it fullscreen for better admin experience
+            stage.setFullScreen(true); // Make it fullscreen for better admin experience
         } catch (Exception e) {
             e.printStackTrace();
             showAlert("Error loading admin dashboard: " + e.getMessage(), Alert.AlertType.ERROR);
@@ -79,6 +79,7 @@ public class LoginController {
             Scene scene = new Scene(loader.load());
             Stage stage = (Stage) usernameField.getScene().getWindow();
             stage.setScene(scene);
+            stage.setFullScreen(true);
         } catch (Exception e) {
             e.printStackTrace();
         }

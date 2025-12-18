@@ -63,6 +63,7 @@ public class SignUpController {
             Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
             Stage stage = (Stage) loginBtn.getScene().getWindow();
             stage.setScene(new Scene(root));
+            stage.setFullScreen(true);
         } catch (Exception e) {
             e.printStackTrace();
         }
