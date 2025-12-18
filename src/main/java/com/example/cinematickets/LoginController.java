@@ -51,6 +51,18 @@ public class LoginController {
             openAdminDashboard();
         } else {
             // TODO: go to main screen (User dashboard)
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cinematickets/MovieBooking.fxml"));
+                Scene checkoutScene = new Scene(loader.load(), 1000, 800);
+
+                Stage stage = (Stage) loginBtn.getScene().getWindow();
+                stage.setScene(checkoutScene);
+                stage.setTitle("Checkout Page");
+                stage.show();
+            }catch (Exception e) {
+                e.printStackTrace();
+                showAlert("Error loading movies page: " + e.getMessage(), Alert.AlertType.ERROR);
+            }
         }
 
     }
@@ -60,7 +72,7 @@ public class LoginController {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource("/com/example/cinematickets/admin-dashboard.fxml")
             );
-            Scene scene = new Scene(loader.load());
+            Scene scene = new Scene(loader.load(), 1000, 800);
             Stage stage = (Stage) usernameField.getScene().getWindow();
             stage.setTitle("Admin Dashboard");
             stage.setScene(scene);
@@ -76,7 +88,7 @@ public class LoginController {
             javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(
                     getClass().getResource("/com/example/cinematickets/signup.fxml")
             );
-            Scene scene = new Scene(loader.load());
+            Scene scene = new Scene(loader.load(), 1000, 800);
             Stage stage = (Stage) usernameField.getScene().getWindow();
             stage.setScene(scene);
             stage.setFullScreen(true);
