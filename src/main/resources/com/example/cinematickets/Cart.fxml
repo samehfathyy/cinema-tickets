@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/22"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.cinematickets.CartController"
+      spacing="10"
+      style="-fx-background-color: #F4F6FA;">
+
+    <!-- Top bar -->
+    <HBox style="-fx-background-color: #2c3e50; -fx-padding: 15;" alignment="CENTER_LEFT" spacing="10">
+        <Label text="My Cart" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+    </HBox>
+
+    <!-- List of cart items -->
+    <ListView fx:id="cartList" VBox.vgrow="ALWAYS" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #cccccc;"/>
+
+    <!-- Total price and checkout button -->
+    <HBox spacing="20" alignment="CENTER_RIGHT">
+        <padding>
+            <Insets top="10" right="10" bottom="10" left="10"/>
+        </padding>
+        <Label fx:id="totalPriceLabel" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+        <Button fx:id="checkoutButton" text="Checkout" onAction="#goToCheckout"
+                style="-fx-background-color: #2c3e50; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20; -fx-background-radius: 5;"/>
+    </HBox>
+
+</VBox>
