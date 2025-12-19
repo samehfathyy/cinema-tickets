@@ -77,7 +77,19 @@ public class Admindashboardcontroller {
 
     private void openHallManagement() {
         // TODO: Implement hall management screen
-        showAlert("Hall management coming soon!", Alert.AlertType.INFORMATION);
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/cinematickets/admin-manage-hall.fxml")
+            );
+            Scene scene = new Scene(loader.load());
+            Stage stage = (Stage) manageHallsBtn.getScene().getWindow();
+            //stage.setTitle("Manage Halls");
+            stage.setScene(scene);
+            stage.setFullScreen(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert("Error loading Hall management: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
     }
 
     private void logout() {

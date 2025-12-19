@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.cinematickets.AdminManageHallsController">
+
+    <!-- Header -->
+    <top>
+        <HBox spacing="10" alignment="CENTER_LEFT"
+              style="-fx-background-color:#2c3e50; -fx-padding:15;">
+
+            <Button text="← Back" fx:id="backBtn"
+                    style="-fx-background-color:#34495e; -fx-text-fill:white;"/>
+
+            <Label text="Admin - Manage Halls"
+                   style="-fx-text-fill:white; -fx-font-size:20; -fx-font-weight:bold;"/>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox spacing="20"> <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+            <!-- Add Hall -->
+            <VBox spacing="10">
+                <Label text="Add New Hall" style="-fx-font-size:16;"/>
+
+                <TextField fx:id="nameField" promptText="Hall Name"/>
+                <TextField fx:id="capacityField" promptText="Capacity"/>
+
+                <Button text="Add Hall" fx:id="addHallBtn"
+                        style="-fx-background-color:#27ae60; -fx-text-fill:white;"
+                        onAction="#addHall"/>
+            </VBox>
+
+            <!-- Table -->
+            <TableView fx:id="hallsTable">
+                <columns>
+                    <TableColumn fx:id="idCol" text="ID"/>
+                    <TableColumn fx:id="nameCol" text="Name"/>
+                    <TableColumn fx:id="capacityCol" text="Capacity"/>
+                </columns>
+            </TableView>
+
+            <Button text="Delete Selected" fx:id="deleteBtn"
+                    style="-fx-background-color:#e74c3c; -fx-text-fill:white;"
+                    onAction="#deleteHall"/>
+        </VBox>
+    </center>
+</BorderPane>

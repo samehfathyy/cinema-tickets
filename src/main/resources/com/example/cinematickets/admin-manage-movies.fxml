@@ -9,15 +9,15 @@
 
     <!-- Header -->
     <top>
-        <Label text="Admin - Manage Movies"
-               style="-fx-background-color:#2c3e50;
-                      -fx-text-fill:white;
-                      -fx-font-size:20;
-                      -fx-padding:15;"
-               BorderPane.alignment="CENTER"/>
-        <Button text="← Back"
-                fx:id="backBtn"
-                style="-fx-background-color:#34495e; -fx-text-fill:white;"/>
+        <HBox spacing="10" alignment="CENTER_LEFT"
+              style="-fx-background-color:#2c3e50; -fx-padding:15;">
+
+            <Button text="← Back" fx:id="backBtn"
+                    style="-fx-background-color:#34495e; -fx-text-fill:white; "/>
+
+            <Label text="Admin - Manage movies"
+                   style="-fx-text-fill:white; -fx-font-size:20; -fx-font-weight:bold;"/>
+        </HBox>
     </top>
 
     <center>
