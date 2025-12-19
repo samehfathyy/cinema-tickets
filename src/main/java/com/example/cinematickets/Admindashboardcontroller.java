@@ -59,7 +59,20 @@ public class Admindashboardcontroller {
 
     private void openMovieManagement() {
         // TODO: Implement movie management screen
-        showAlert("Movie management coming soon!", Alert.AlertType.INFORMATION);
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/example/cinematickets/admin-manage-movies.fxml")
+            );
+            Scene scene = new Scene(loader.load());
+            Stage stage = (Stage) manageMoviesBtn.getScene().getWindow();
+            stage.setTitle("Manage Movies");
+            stage.setScene(scene);
+            stage.setFullScreen(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert("Error loading Movie management: " + e.getMessage(),
+                    Alert.AlertType.ERROR);
+        }
     }
 
     private void openHallManagement() {

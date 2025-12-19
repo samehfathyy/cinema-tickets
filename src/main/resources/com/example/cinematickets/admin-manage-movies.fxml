@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.cinematickets.AdminManageMoviesController">
+
+    <!-- Header -->
+    <top>
+        <Label text="Admin - Manage Movies"
+               style="-fx-background-color:#2c3e50;
+                      -fx-text-fill:white;
+                      -fx-font-size:20;
+                      -fx-padding:15;"
+               BorderPane.alignment="CENTER"/>
+        <Button text="← Back"
+                fx:id="backBtn"
+                style="-fx-background-color:#34495e; -fx-text-fill:white;"/>
+    </top>
+
+    <center>
+        <VBox spacing="20">
+
+            <!-- ✅ padding الصح -->
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <!-- Add Movie -->
+            <VBox spacing="10">
+                <Label text="Add New Movie"
+                       style="-fx-font-size:16;"/>
+
+                <TextField fx:id="nameField" promptText="Movie Name"/>
+                <TextField fx:id="languageField" promptText="Language"/>
+                <TextField fx:id="genreField" promptText="Genre"/>
+
+                <Button text="Add Movie"
+                        fx:id="addMovieBtn"
+                        onAction="#addMovie"
+                        style="-fx-background-color:#27ae60; -fx-text-fill:white;"/>
+            </VBox>
+
+            <!-- Table -->
+            <TableView fx:id="moviesTable">
+                <columns>
+                    <TableColumn fx:id="idCol" text="ID"/>
+                    <TableColumn fx:id="nameCol" text="Name"/>
+                    <TableColumn fx:id="languageCol" text="Language"/>
+                    <TableColumn fx:id="genreCol" text="Genre"/>
+                </columns>
+            </TableView>
+
+            <Button text="Delete Selected"
+                    fx:id="deleteBtn"
+                    onAction="#deleteMovie"
+                    style="-fx-background-color:#e74c3c; -fx-text-fill:white;"/>
+
+        </VBox>
+    </center>
+
+</BorderPane>
