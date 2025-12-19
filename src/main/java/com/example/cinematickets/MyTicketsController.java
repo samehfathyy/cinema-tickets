@@ -45,7 +45,7 @@ public class MyTicketsController {
     @FXML
     private void goBack() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cinematickets/MovieBooking.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cinematickets/movie-selection.fxml"));
             Scene scene = new Scene(loader.load(), 1000, 800);
             Stage stage = (Stage) ticketsTable.getScene().getWindow();
             stage.setScene(scene);

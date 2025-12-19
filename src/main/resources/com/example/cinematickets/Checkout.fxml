@@ -16,6 +16,7 @@
             <Label text="🎬 Checkout"
                    style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" />
             <Region HBox.hgrow="ALWAYS"/>
+           
             <Button text="My Tickets"
                     onAction="#goToMyTickets"
                     style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-radius: 20;

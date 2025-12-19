@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.cinematickets.ShowtimeSelectionController"
+      spacing="20"
+      style="-fx-background-color: #F4F6FA; -fx-padding: 20;">
+
+    <!-- Header -->
+    <VBox spacing="10" style="-fx-background-color: #2C3E50; -fx-padding: 20; -fx-background-radius: 8;">
+        <HBox alignment="CENTER_LEFT" spacing="20">
+            <Button fx:id="backButton" text="← Back to Movies"
+                    style="-fx-background-color: #34495E; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15; -fx-cursor: hand;"/>
+            <VBox spacing="5">
+                <Label text="Select Showtime" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                <Label fx:id="movieTitleLabel" text="Movie Title" style="-fx-font-size: 18px; -fx-text-fill: #BDC3C7;"/>
+            </VBox>
+        </HBox>
+        <Label fx:id="movieDetailsLabel" text="Genre: Action | Language: English | Rating: 4.5/5.0"
+               style="-fx-font-size: 14px; -fx-text-fill: #BDC3C7;"/>
+    </VBox>
+
+    <!-- Showtimes Grid Container -->
+    <VBox fx:id="mainContainer" spacing="20" VBox.vgrow="ALWAYS">
+        <Label text="Available Showtimes" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;"/>
+
+        <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS"
+                    style="-fx-background-color: transparent; -fx-border-color: transparent;">
+            <GridPane fx:id="showtimesGrid" hgap="20" vgap="20" alignment="CENTER"
+                      style="-fx-padding: 10;"/>
+        </ScrollPane>
+    </VBox>
+
+</VBox>
