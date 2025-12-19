@@ -14,7 +14,7 @@ public class HelloApplication extends Application {
         //adding the dummy data on startup!
         initializeDummyData();
 
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("movie-selection.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login.fxml"));
 
         Scene scene = new Scene(fxmlLoader.load(), 1000, 800);
         stage.setTitle("Hello!");
