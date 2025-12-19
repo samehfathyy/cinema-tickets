@@ -2,6 +2,9 @@ package com.example.cinematickets;
 
 import com.example.cinematickets.models.CartManager;
 import com.example.cinematickets.models.TicketManager;
+import com.example.cinematickets.repos.CinemaRepository;
+import com.example.cinematickets.repos.CinemaRepositoryProxy;
+import javafx.stage.WindowEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,9 +13,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
 
 public class CheckoutController {
 
@@ -27,6 +33,8 @@ public class CheckoutController {
 
     private ToggleGroup paymentGroup;
     private Map<String, String> paymentFXMLMap = new HashMap<>();
+    private int pendingShowTimeId;
+    private List<Integer> pendingSeatNumbers;
 
     @FXML
     public void initialize() {
@@ -41,6 +49,14 @@ public class CheckoutController {
         paymentFXMLMap.put("Visa", "/com/example/cinematickets/VisaPayment.fxml");
         paymentFXMLMap.put("PayPal", "/com/example/cinematickets/PaypalPayment.fxml");
         paymentFXMLMap.put("InstaPay", "/com/example/cinematickets/InstaPayment.fxml");
+
+        // Load cart data
+        setCartTickets(CartManager.getCart());
+    }
+
+    public void setPendingBooking(int showTimeId, List<Integer> seatNumbers) {
+        this.pendingShowTimeId = showTimeId;
+        this.pendingSeatNumbers = new ArrayList<>(seatNumbers);
     }
 
     /** Populate the checkout page with all tickets in the cart */
@@ -103,21 +119,50 @@ public class CheckoutController {
                 return;
             }
 
+            // Book the seats only after successful payment
+            if (pendingSeatNumbers != null && !pendingSeatNumbers.isEmpty()) {
+                CinemaRepository repository = new CinemaRepositoryProxy();
+                com.example.cinematickets.models.Checkout actualBooking = repository.bookMultipleTickets(pendingShowTimeId, pendingSeatNumbers);
+
+                if (actualBooking == null) {
+                    confirmationMessage.setText("Booking failed! Seats may no longer be available.");
+                    return;
+                }
+
+                // Get showtime from existing cart item before clearing
+                String showtime = cart.get(0).getShowtime();
+
+                // Update the cart with the actual booking data
+                CartManager.clearCart();
+                CartManager.addToCart(new MyTicketsController.CheckoutTicket(actualBooking, showtime));
+                cart = CartManager.getCart(); // Refresh cart reference
+            }
+
             // Add all tickets to TicketManager and clear cart
             cart.forEach(TicketManager::addTicket);
             CartManager.clearCart();
+
+            // Clear pending booking data
+            pendingShowTimeId = 0;
+            pendingSeatNumbers = null;
 
             // Clear UI
             movieDetailsContainer.getChildren().clear();
             ticketsPrice.setText("$0");
             totalPrice.setText("$0");
-            confirmationMessage.setText("Payment Successful for all items!");
+            confirmationMessage.setText("Payment Successful! Redirecting to My Tickets...");
+
+            // Automatically navigate to My Tickets after successful payment
+            PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
+            pause.setOnFinished(e -> goToMyTickets());
+            pause.play();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    
     @FXML
     private void goToMyTickets() {
         try {

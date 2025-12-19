@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class MainRepository {
+public class MainRepository implements CinemaRepository{
     private static MainRepository repo;
     private MainRepository(){
     }
