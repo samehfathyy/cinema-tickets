@@ -52,12 +52,13 @@ public class LoginController {
         } else {
             // TODO: go to main screen (User dashboard)
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cinematickets/MovieBooking.fxml"));
-                Scene checkoutScene = new Scene(loader.load(), 1000, 800);
+                // Kan by navigate ll checkout page 3ltul khleto y3red l movies l awel
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cinematickets/movie-selection.fxml"));
+                Scene movieScene = new Scene(loader.load(), 1000, 800);
 
                 Stage stage = (Stage) loginBtn.getScene().getWindow();
-                stage.setScene(checkoutScene);
-                stage.setTitle("Checkout Page");
+                stage.setScene(movieScene);
+                stage.setTitle("Select Movie - Cinema Ticket Booking");
                 stage.show();
             }catch (Exception e) {
                 e.printStackTrace();

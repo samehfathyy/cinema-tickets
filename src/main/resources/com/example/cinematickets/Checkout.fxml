@@ -3,113 +3,75 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.*?>
 
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.cinematickets.CheckoutController"
-      spacing="20"
-      style="-fx-background-color: #F4F6FA;">
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.cinematickets.CheckoutController"
+            style="-fx-background-color: #F4F6FA;">
 
     <!-- ===== Top Bar ===== -->
-    <HBox alignment="CENTER_LEFT"
-          spacing="15"
-          style="-fx-background-color: #2c3e50; -fx-padding: 15;">
-        <Label text="🎬 Checkout"
-               style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" />
-        <Region HBox.hgrow="ALWAYS"/>
+    <top>
+        <HBox alignment="CENTER_LEFT"
+              spacing="15"
+              style="-fx-background-color: #2c3e50; -fx-padding: 15;">
+            <Label text="🎬 Checkout"
+                   style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;" />
+            <Region HBox.hgrow="ALWAYS"/>
+           
+            <Button text="My Tickets"
+                    onAction="#goToMyTickets"
+                    style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-radius: 20;
+                           -fx-text-fill: white; -fx-padding: 6 14;"/>
+        </HBox>
+    </top>
 
-        <Button text="My Tickets"
-        onAction="#goToMyTickets"
-        style="
-        -fx-background-color: transparent;
-        -fx-border-color: white;
-        -fx-border-radius: 20;
-        -fx-text-fill: white;
-        -fx-padding: 6 14;
-        "/>
+    <!-- ===== Center Scrollable Movie Cards ===== -->
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-padding: 10;">
+            <content>
+                <VBox fx:id="movieDetailsContainer" spacing="15">
+                    <padding>
+                        <Insets top="10" right="10" bottom="10" left="10"/>
+                    </padding>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
 
-    </HBox>
+    <!-- ===== Bottom: Bill & Payment ===== -->
+    <bottom>
+        <VBox spacing="15" style="-fx-padding: 15;">
 
-    <!-- ===== Main Content ===== -->
-    <VBox spacing="20"
-          alignment="TOP_CENTER"
-          style="-fx-padding: 25;">
+            <!-- Bill Summary -->
+            <VBox spacing="6"
+                  style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10;
+                         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);">
+                <Label text="💰 Bill Summary" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+                <Label fx:id="ticketsPrice"/>
+                <Label fx:id="totalPrice" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+            </VBox>
 
-        <!-- Movie Info Card -->
-        <VBox spacing="6"
-              style="
-                -fx-background-color: white;
-                -fx-padding: 15;
-                -fx-background-radius: 10;
-                -fx-font-size: 16px;
-                -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 4);
-              ">
-            <Label text="Movie Details"
-                   style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+            <!-- Payment Method -->
+            <VBox spacing="8"
+                  style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10;
+                         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);">
+                <Label text="💳 Payment Method" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+                <HBox spacing="15">
+                    <RadioButton text="InstaPay" fx:id="instaRadio" style="-fx-font-size: 16px;"/>
+                    <RadioButton text="Visa" fx:id="visaRadio" style="-fx-font-size: 16px;"/>
+                    <RadioButton text="PayPal" fx:id="paypalRadio" style="-fx-font-size: 16px;"/>
+                </HBox>
+            </VBox>
 
-            <Label fx:id="movieNameLabel"/>
-            <Label fx:id="showtimeLabel"/>
-            <Label fx:id="hallNameLabel"/>
-            <Label fx:id="seatsCountLabel"/>
-        </VBox>
-
-        <!-- Selected Seats -->
-        <VBox spacing="8"
-              style="
-                -fx-background-color: white;
-                -fx-padding: 15;
-                -fx-background-radius: 10;
-                -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 4);
-              ">
-            <Label text="Selected Seats"
-                   style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
-            <ListView fx:id="seatsList" prefHeight="110"/>
-        </VBox>
-
-        <!-- Bill -->
-        <VBox spacing="6"
-              style="
-                -fx-background-color: white;
-                -fx-padding: 15;
-                -fx-background-radius: 10;
-                -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 4);
-              ">
-            <Label text="Bill Summary"
-                   style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
-            <Label fx:id="ticketsPrice"/>
-            <Label fx:id="totalPrice"
-                   style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
-        </VBox>
-
-        <!-- Payment Method -->
-        <VBox spacing="8"
-              style="
-                -fx-background-color: white;
-                -fx-padding: 15;
-                -fx-background-radius: 10;
-                -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 4);
-              ">
-            <Label text="Payment Method"
-                   style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
-
-            <HBox spacing="15">
-                <RadioButton text="Cash" fx:id="cashRadio" style="-fx-font-size: 16px;"/>
-                <RadioButton text="Visa" fx:id="visaRadio" style="-fx-font-size: 16px;"/>
-                <RadioButton text="PayPal" fx:id="paypalRadio" style="-fx-font-size: 16px;"/>
+            <!-- Pay Button + Confirmation -->
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                <Button text="Pay Now"
+                        onAction="#handlePay"
+                        style="-fx-background-color: #2c3e50; -fx-text-fill: white; -fx-font-size: 16px;
+                               -fx-padding: 10 40; -fx-background-radius: 25;"/>
+                <Label fx:id="confirmationMessage" style="-fx-font-size: 16px; -fx-text-fill: green;"/>
             </HBox>
+
         </VBox>
+    </bottom>
 
-        <!-- Pay Button -->
-        <Button text="Pay Now"
-                onAction="#handlePay"
-                style="
-                    -fx-background-color: #2c3e50;
-                    -fx-text-fill: white;
-                    -fx-font-size: 16px;
-                    -fx-padding: 10 40;
-                    -fx-background-radius: 25;
-                "/>
-
-        <Label fx:id="confirmationMessage"
-               style="-fx-font-size: 16px; -fx-text-fill: green;"/>
-    </VBox>
-</VBox>
+</BorderPane>

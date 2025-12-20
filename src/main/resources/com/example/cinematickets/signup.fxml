@@ -1,26 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox spacing="15" alignment="CENTER"
-      xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.cinematickets.SignUpController">
+<AnchorPane prefWidth="800" prefHeight="500"
+            xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.cinematickets.SignUpController"
+            style="-fx-background-color: linear-gradient(to bottom right, #1e3c72, #2a5298);">
 
-    <padding>
-        <Insets top="40" right="40" bottom="40" left="40"/>
-    </padding>
+    <children>
 
-    <Label text="Create Account" style="-fx-font-size: 18px;"/>
+        <!-- Main Center Container -->
+        <VBox alignment="CENTER"
+              spacing="20"
+              AnchorPane.topAnchor="0"
+              AnchorPane.bottomAnchor="0"
+              AnchorPane.leftAnchor="0"
+              AnchorPane.rightAnchor="0">
 
-    <TextField fx:id="usernameField" promptText="Username"/>
-    <PasswordField fx:id="passwordField" promptText="Password"/>
+            <!-- App Title -->
+            <Label text="🎬 Cinema Tickets"
+                   style="-fx-font-size:32;
+                          -fx-font-weight:bold;
+                          -fx-text-fill:white;"/>
 
+            <Label text="Create your account"
+                   style="-fx-font-size:14;
+                          -fx-text-fill:#dfe6e9;"/>
 
-    <Button text="Sign Up" fx:id="signUpBtn"/>
+            <!-- Sign Up Card -->
+            <VBox spacing="15"
+                  alignment="CENTER"
+                  prefWidth="300"
+                  style="-fx-padding:25;
+                         -fx-background-color:white;
+                         -fx-background-radius:12;
+                         -fx-effect:dropshadow(gaussian, rgba(0,0,0,0.25), 15, 0, 0, 6);">
 
-    <Button text="Already have an account? Login" fx:id="loginBtn"/>
+                <Label text="Sign Up"
+                       style="-fx-font-size:22;
+                              -fx-font-weight:bold;
+                              -fx-text-fill:#2c3e50;"/>
 
-</VBox>
+                <TextField fx:id="usernameField"
+                           promptText="Username"
+                           style="-fx-pref-width:220;
+                                  -fx-pref-height:40;"/>
+
+                <PasswordField fx:id="passwordField"
+                               promptText="Password"
+                               style="-fx-pref-width:220;
+                                      -fx-pref-height:40;"/>
+
+                <Button text="Create Account"
+                        fx:id="signUpBtn"
+                        style="-fx-background-color:#27ae60;
+                               -fx-text-fill:white;
+                               -fx-font-size:14;
+                               -fx-font-weight:bold;
+                               -fx-pref-width:220;
+                               -fx-pref-height:40;
+                               -fx-background-radius:6;"/>
+
+                <Button text="Already have an account? Login"
+                        fx:id="loginBtn"
+                        style="-fx-background-color:#3498db;
+                               -fx-text-fill:white;
+                               -fx-font-size:13;
+                               -fx-pref-width:220;
+                               -fx-pref-height:36;
+                               -fx-background-radius:6;"/>
+
+            </VBox>
+
+        </VBox>
+
+    </children>
+</AnchorPane>

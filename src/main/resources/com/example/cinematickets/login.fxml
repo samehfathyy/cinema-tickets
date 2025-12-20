@@ -1,27 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefWidth="400" prefHeight="300" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.cinematickets.LoginController">
+<AnchorPane prefWidth="700" prefHeight="500"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.cinematickets.LoginController"
+            style="-fx-background-color: linear-gradient(to bottom right, #1e3c72, #2a5298);">
 
     <children>
-        <VBox spacing="15" layoutX="100" layoutY="50">
-            <children>
-                <Label text="Login" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
 
-                <TextField fx:id="usernameField" promptText="Username"/>
-                <PasswordField fx:id="passwordField" promptText="Password"/>
+        <!-- Main Container -->
+        <VBox alignment="CENTER"
+              spacing="20"
+              AnchorPane.topAnchor="0"
+              AnchorPane.bottomAnchor="0"
+              AnchorPane.leftAnchor="0"
+              AnchorPane.rightAnchor="0">
 
-                <!-- FIX: Added fx:id -->
-                <Button text="Login" fx:id="loginBtn" />
+            <!-- App Title -->
+            <Label text="🎬 Cinema Tickets"
+                   style="-fx-font-size:32;
+                          -fx-font-weight:bold;
+                          -fx-text-fill:white;"/>
 
-                <!-- FIX: Change fx:id to goToSignUpBtn to match controller -->
-                <Button text="Sign Up" fx:id="goToSignUpBtn"/>
-            </children>
+            <Label text="Book your movie tickets easily"
+                   style="-fx-font-size:14;
+                          -fx-text-fill:#dfe6e9;"/>
+
+            <!-- Login Card -->
+            <VBox spacing="15"
+                  alignment="CENTER"
+                  style="-fx-padding:25;
+                         -fx-background-color:white;
+                         -fx-background-radius:12;
+                         -fx-effect:dropshadow(gaussian, rgba(0,0,0,0.25), 15, 0, 0, 6);">
+
+                <Label text="Login"
+                       style="-fx-font-size:22;
+                              -fx-font-weight:bold;
+                              -fx-text-fill:#2c3e50;"/>
+
+                <TextField fx:id="usernameField"
+                           promptText="Username"
+                           style="-fx-pref-width:220;
+                                  -fx-pref-height:40;"/>
+
+                <PasswordField fx:id="passwordField"
+                               promptText="Password"
+                               style="-fx-pref-width:220;
+                                      -fx-pref-height:40;"/>
+
+                <Button text="Login"
+                        fx:id="loginBtn"
+                        style="-fx-background-color:#27ae60;
+                               -fx-text-fill:white;
+                               -fx-font-size:14;
+                               -fx-font-weight:bold;
+                               -fx-pref-width:220;
+                               -fx-pref-height:40;
+                               -fx-background-radius:6;"/>
+
+                <Button text="Sign Up"
+                        fx:id="goToSignUpBtn"
+                        style="-fx-background-color:#3498db;
+                               -fx-text-fill:white;
+                               -fx-font-size:14;
+                               -fx-pref-width:220;
+                               -fx-pref-height:38;
+                               -fx-background-radius:6;"/>
+
+            </VBox>
+
         </VBox>
-    </children>
 
+    </children>
 </AnchorPane>
