@@ -112,6 +112,8 @@ public class MainRepository implements CinemaRepository{
                 .distinct() //removes duplicates
                 .collect(Collectors.toList()); //Ends the stream and turns it into a collection
     }
+
+
     public List<String> getLanguagesFromAllMovies(){
         List<String> languages = new ArrayList<>();
         for (Movie movie:movies){
@@ -119,6 +121,8 @@ public class MainRepository implements CinemaRepository{
         }
         return languages.stream().distinct().collect(Collectors.toList());
     }
+
+
     //halls
     public void addHall(String name,int capacity){
         halls.add(new Hall(hallsCount++,name,capacity));

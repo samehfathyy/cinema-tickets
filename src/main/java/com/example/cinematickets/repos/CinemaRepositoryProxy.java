@@ -2,6 +2,7 @@ package com.example.cinematickets.repos;
 
 import com.example.cinematickets.models.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -46,4 +47,21 @@ public class CinemaRepositoryProxy implements CinemaRepository {
         System.out.println("Proxy: Accessing bookMultipleTickets(" + showTimeId + ", " + seatsNumbers.size() + " seats)");
         return realRepository.bookMultipleTickets(showTimeId, seatsNumbers);
     }
+
+    public List<Movie> getMoviesByRateHigherThan(Float rate){
+        return realRepository.getMoviesByRateHigherThan(rate);
+    }
+    public List<Movie> filterMoviesByGenre(String genre){
+        return realRepository.filterMoviesByGenre(genre);
+    }
+    public List<Movie> filterMoviesByLanguage(String language){
+        return realRepository.filterMoviesByLanguage(language);
+    }
+    public List<Movie> filterMoviesByDate(LocalDateTime startDate, LocalDateTime endDate){
+        return realRepository.filterMoviesByDate(startDate,endDate);
+    }
+    public List<Movie> searchMoviesByName(String wordToSearchFor){
+        return realRepository.searchMoviesByName(wordToSearchFor);
+    }
+
 }
