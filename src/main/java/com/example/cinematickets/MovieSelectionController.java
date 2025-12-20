@@ -8,13 +8,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class MovieSelectionController {
 
@@ -27,16 +32,72 @@ public class MovieSelectionController {
     @FXML
     private GridPane moviesGrid;
 
+    @FXML private TextField searchField;
+    @FXML private ComboBox<String> genreFilter;
+    @FXML private ComboBox<String> languageFilter;
+    @FXML private Button clearFiltersBtn;
+
     private CinemaRepository repository;
 
     @FXML
     public void initialize() {
         repository = new CinemaRepositoryProxy();
-        loadMovies();
+        loadFilters();
+        loadMovies(repository.getMovies());
+        searchField.textProperty().addListener((obs, oldVal, newVal) -> applyFilters());
+        genreFilter.setOnAction(e -> applyFilters());
+        languageFilter.setOnAction(e -> applyFilters());
+
+        clearFiltersBtn.setOnAction(e -> {
+            searchField.clear();
+            genreFilter.getSelectionModel().clearSelection();
+            languageFilter.getSelectionModel().clearSelection();
+            loadMovies(repository.getMovies());
+        });
     }
 
-    private void loadMovies() {
-        List<Movie> movies = repository.getMovies();
+    private void applyFilters() {
+        List<Movie> result = repository.getMovies();
+
+        // Search by name
+        String searchText = searchField.getText();
+        if (searchText != null && !searchText.isBlank()) {
+            result = repository.searchMoviesByName(searchText);
+        }
+
+        // Filter by genre
+        String genre = genreFilter.getValue();
+        if (genre != null && !genre.isBlank()) {
+            result = result.stream()
+                    .filter(m -> m.type.genre.equalsIgnoreCase(genre))
+                    .collect(Collectors.toList());
+        }
+
+        // Filter by language
+        String language = languageFilter.getValue();
+        if (language != null && !language.isBlank()) {
+            result = result.stream()
+                    .filter(m -> m.type.language.equalsIgnoreCase(language))
+                    .collect(Collectors.toList());
+        }
+
+        loadMovies(result);
+    }
+    private void loadFilters() {
+        Set<String> genres = repository.getMovies().stream()
+                .map(m -> m.type.genre)
+                .collect(Collectors.toSet());
+
+        Set<String> languages = repository.getMovies().stream()
+                .map(m -> m.type.language)
+                .collect(Collectors.toSet());
+
+        genreFilter.getItems().addAll(genres);
+        languageFilter.getItems().addAll(languages);
+    }
+
+    private void loadMovies(List<Movie> movies) {
+        //List<Movie> movies = repository.getMovies();
         moviesGrid.getChildren().clear();
 
         int row = 0;
@@ -87,6 +148,8 @@ public class MovieSelectionController {
         card.getChildren().addAll(titleLabel, genreLabel, languageLabel, ratingLabel, selectButton);
         return card;
     }
+
+
 
     private void selectMovie(Movie movie) {
         try {

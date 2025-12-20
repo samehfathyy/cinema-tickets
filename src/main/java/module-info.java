@@ -1,6 +1,7 @@
 module com.example.cinematickets {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.desktop;
 
 
     opens com.example.cinematickets to javafx.fxml;

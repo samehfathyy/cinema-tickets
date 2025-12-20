@@ -14,6 +14,29 @@
         <Label text="Cinema Ticket Booking" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: white;"/>
     </VBox>
 
+    <!-- Search & Filter Bar -->
+    <HBox spacing="15" alignment="CENTER_LEFT"
+          style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 8;
+             -fx-border-color: #DCDDE1; -fx-border-radius: 8;">
+
+        <TextField fx:id="searchField"
+                   promptText="Search movie by name..."
+                   prefWidth="250"
+                   style="-fx-font-size: 14px;"/>
+
+        <ComboBox fx:id="genreFilter"
+                  promptText="Genre"
+                  prefWidth="150"/>
+
+        <ComboBox fx:id="languageFilter"
+                  promptText="Language"
+                  prefWidth="150"/>
+
+        <Button text="Clear"
+                fx:id="clearFiltersBtn"
+                style="-fx-background-color: #E74C3C; -fx-text-fill: white;"/>
+    </HBox>
+
     <!-- Movies Grid Container -->
     <VBox fx:id="mainContainer" spacing="20" VBox.vgrow="ALWAYS">
         <Label text="Available Movies" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;"/>

@@ -9,6 +9,10 @@ public interface CinemaRepository {
     List<Movie> getMovies();
     Movie getMovieById(int id);
 
+
+    List<Movie> searchMoviesByName(String wordToSearchFor);
+    List<Movie> filterMoviesByGenre(String genre);
+    List<Movie> filterMoviesByLanguage(String language);
     // Hall operations
     Hall getHallById(int id);
 
