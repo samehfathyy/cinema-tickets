@@ -25,13 +25,13 @@ public class Movie implements Prototype{
         this.reviews = new ArrayList<>();
     }
 
-    void addReview(Review r){
+    public void addReview(Review r){
         reviews.add(r);
         Float sum= 0.0F;
         for (Review review:reviews){
-            sum =+ review.rate;
+            sum += review.rate;
         }
-        avgRate=sum/reviews.size();
+        avgRate=sum/(reviews.size());
     }
     List<Review> getReviews(){
         return reviews;

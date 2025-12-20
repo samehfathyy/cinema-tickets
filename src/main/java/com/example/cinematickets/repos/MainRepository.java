@@ -206,4 +206,14 @@ public class MainRepository implements CinemaRepository{
         return null;
     }
 
+
+
+    public boolean rateMovie(int movieId,String comment,Float rate){
+        if(getMovieById(movieId)==null||comment.isBlank()||rate>5F||rate<0F){
+            return false;
+        }
+        getMovieById(movieId).addReview(new Review(comment,rate));
+        return true;
+    }
+
     }
